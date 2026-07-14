@@ -182,8 +182,8 @@ window.websiteConfig = {
         "id": 0,
         "label": "Row 1",
         "direction": "left",
-        "cardWidth": 5000,
-        "cardHeight": 8885,
+        "cardWidth": 300,
+        "cardHeight": 534,
         "videos": [
           {
             "videoSrc": "./uploaded_videos/1784000275368-115422528.mp4",
@@ -542,5 +542,5 @@ window.websiteConfig = {
       ]
     }
   ],
-  "videoCardWidth": 3000
+  "videoCardWidth": 300
 };

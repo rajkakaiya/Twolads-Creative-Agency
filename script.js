@@ -61,51 +61,7 @@ document.addEventListener('DOMContentLoaded', () => {
         const previewDesc = document.getElementById('preview-project-desc');
         const previewDeliv = document.getElementById('preview-project-deliv');
 
-        if (previewContainer && previewVideo && !previewContainer.querySelector('.card-loader-overlay')) {
-            const loaderOverlay = document.createElement('div');
-            loaderOverlay.className = 'card-loader-overlay';
-            loaderOverlay.innerHTML = `
-                <div class="card-loader-logo-wrap">
-                    <img src="assets/logo.png" alt="Loading Logo" class="card-loader-logo">
-                </div>
-                <div class="card-loader-bar">
-                    <div class="card-loader-progress"></div>
-                </div>
-            `;
-            previewContainer.appendChild(loaderOverlay);
-
-            const progressFill = loaderOverlay.querySelector('.card-loader-progress');
-            
-            const updateProgress = () => {
-                if (previewVideo.buffered.length > 0 && previewVideo.duration) {
-                    const bufferedEnd = previewVideo.buffered.end(previewVideo.buffered.length - 1);
-                    const percent = Math.min((bufferedEnd / previewVideo.duration) * 100, 100);
-                    progressFill.style.width = `${percent}%`;
-                }
-            };
-
-            previewVideo.addEventListener('progress', updateProgress);
-            previewVideo.addEventListener('loadedmetadata', updateProgress);
-            previewVideo.addEventListener('durationchange', updateProgress);
-
-            const hideLoader = () => {
-                loaderOverlay.classList.add('fade-out');
-                progressFill.style.width = '100%';
-            };
-
-            const showLoader = () => {
-                loaderOverlay.classList.remove('fade-out');
-            };
-
-            previewVideo.addEventListener('canplay', hideLoader);
-            previewVideo.addEventListener('playing', hideLoader);
-            previewVideo.addEventListener('waiting', showLoader);
-            previewVideo.addEventListener('loadstart', showLoader);
-            
-            if (previewVideo.readyState >= 3) {
-                hideLoader();
-            }
-        }
+        // Card loader removed as preloading is handled globally on page preloader startup.
 
         const dataList = customProjectsData || [
             {
@@ -315,61 +271,9 @@ document.addEventListener('DOMContentLoaded', () => {
                 card.appendChild(logoOverlay);
             }
 
-            // Append premium loading overlay
-            if (!card.querySelector('.card-loader-overlay')) {
-                const loaderOverlay = document.createElement('div');
-                loaderOverlay.className = 'card-loader-overlay';
-                loaderOverlay.innerHTML = `
-                    <div class="card-loader-logo-wrap">
-                        <img src="assets/logo.png" alt="Loading Logo" class="card-loader-logo">
-                    </div>
-                    <div class="card-loader-bar">
-                        <div class="card-loader-progress"></div>
-                    </div>
-                `;
-                card.appendChild(loaderOverlay);
+            // Removed card-loader-overlay as preloading is handled globally on page preloader startup.
 
-                const progressFill = loaderOverlay.querySelector('.card-loader-progress');
-                
-                const updateProgress = () => {
-                    if (video.buffered.length > 0 && video.duration) {
-                        const bufferedEnd = video.buffered.end(video.buffered.length - 1);
-                        const percent = Math.min((bufferedEnd / video.duration) * 100, 100);
-                        progressFill.style.width = `${percent}%`;
-                    }
-                };
-
-                video.addEventListener('progress', updateProgress);
-                video.addEventListener('loadedmetadata', updateProgress);
-                video.addEventListener('durationchange', updateProgress);
-
-                const hideLoader = () => {
-                    loaderOverlay.classList.add('fade-out');
-                    progressFill.style.width = '100%';
-                };
-
-                const showLoader = () => {
-                    loaderOverlay.classList.remove('fade-out');
-                };
-
-                video.addEventListener('canplay', hideLoader);
-                video.addEventListener('playing', hideLoader);
-                video.addEventListener('waiting', showLoader);
-                video.addEventListener('loadstart', showLoader);
-                
-                if (video.readyState >= 3) {
-                    hideLoader();
-                }
-            }
-
-            card.addEventListener('mouseenter', () => {
-                video.play().catch(err => console.log('Autoplay blocked:', err));
-            });
-
-            card.addEventListener('mouseleave', () => {
-                video.pause();
-                video.currentTime = 0;
-            });
+            // Removed hover video playback as requested. Videos remain as static preview frames and play in lightbox when clicked.
         });
     }
     setupReelsHoverPlayback();
@@ -1087,9 +991,56 @@ document.addEventListener('DOMContentLoaded', () => {
 // ─── Preloader Loader Handler ───
 window.addEventListener('load', () => {
     const preloader = document.getElementById('page-preloader');
-    if (preloader) {
+    if (!preloader) return;
+
+    const carouselVideos = Array.from(document.querySelectorAll('.carousel-video-card video')).slice(0, 3);
+    let loadedCount = 0;
+    const targetCount = carouselVideos.length;
+
+    const startBackgroundPreloading = () => {
+        const allVideos = document.querySelectorAll('.carousel-video-card video, .reels-grid-card video');
+        allVideos.forEach(video => {
+            if (video.preload !== 'auto') {
+                video.preload = 'auto';
+                video.load();
+            }
+        });
+    };
+
+    const fadeOutPreloader = () => {
+        if (preloader.classList.contains('fade-out')) return;
+        preloader.classList.add('fade-out');
         setTimeout(() => {
-            preloader.classList.add('fade-out');
-        }, 500);
+            preloader.style.display = 'none';
+            startBackgroundPreloading();
+        }, 600);
+    };
+
+    if (carouselVideos.length === 0) {
+        fadeOutPreloader();
+        return;
     }
+
+    const checkVideoLoaded = () => {
+        loadedCount++;
+        if (loadedCount >= targetCount) {
+            fadeOutPreloader();
+        }
+    };
+
+    carouselVideos.forEach(video => {
+        video.preload = "auto";
+        if (video.readyState >= 3) {
+            checkVideoLoaded();
+        } else {
+            video.addEventListener('canplaythrough', checkVideoLoaded, { once: true });
+            video.addEventListener('canplay', checkVideoLoaded, { once: true });
+            video.addEventListener('error', checkVideoLoaded, { once: true });
+        }
+    });
+
+    // Fallback: Snappier 3.5 seconds timeout to keep startup instant
+    setTimeout(() => {
+        fadeOutPreloader();
+    }, 3500);
 });
