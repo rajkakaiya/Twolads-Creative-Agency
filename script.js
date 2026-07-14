@@ -54,13 +54,58 @@ document.addEventListener('DOMContentLoaded', () => {
         });
     }
 
-    // 3. Works Hover Preview Video Swapper
     window.setupWorksHoverPreviews = function(customProjectsData) {
         const previewContainer = document.getElementById('preview-video-container');
         const previewVideo = document.getElementById('project-preview-video');
         const previewTitle = document.getElementById('preview-project-title');
         const previewDesc = document.getElementById('preview-project-desc');
         const previewDeliv = document.getElementById('preview-project-deliv');
+
+        if (previewContainer && previewVideo && !previewContainer.querySelector('.card-loader-overlay')) {
+            const loaderOverlay = document.createElement('div');
+            loaderOverlay.className = 'card-loader-overlay';
+            loaderOverlay.innerHTML = `
+                <div class="card-loader-logo-wrap">
+                    <img src="assets/logo.png" alt="Loading Logo" class="card-loader-logo">
+                </div>
+                <div class="card-loader-bar">
+                    <div class="card-loader-progress"></div>
+                </div>
+            `;
+            previewContainer.appendChild(loaderOverlay);
+
+            const progressFill = loaderOverlay.querySelector('.card-loader-progress');
+            
+            const updateProgress = () => {
+                if (previewVideo.buffered.length > 0 && previewVideo.duration) {
+                    const bufferedEnd = previewVideo.buffered.end(previewVideo.buffered.length - 1);
+                    const percent = Math.min((bufferedEnd / previewVideo.duration) * 100, 100);
+                    progressFill.style.width = `${percent}%`;
+                }
+            };
+
+            previewVideo.addEventListener('progress', updateProgress);
+            previewVideo.addEventListener('loadedmetadata', updateProgress);
+            previewVideo.addEventListener('durationchange', updateProgress);
+
+            const hideLoader = () => {
+                loaderOverlay.classList.add('fade-out');
+                progressFill.style.width = '100%';
+            };
+
+            const showLoader = () => {
+                loaderOverlay.classList.remove('fade-out');
+            };
+
+            previewVideo.addEventListener('canplay', hideLoader);
+            previewVideo.addEventListener('playing', hideLoader);
+            previewVideo.addEventListener('waiting', showLoader);
+            previewVideo.addEventListener('loadstart', showLoader);
+            
+            if (previewVideo.readyState >= 3) {
+                hideLoader();
+            }
+        }
 
         const dataList = customProjectsData || [
             {
@@ -275,6 +320,9 @@ document.addEventListener('DOMContentLoaded', () => {
                 const loaderOverlay = document.createElement('div');
                 loaderOverlay.className = 'card-loader-overlay';
                 loaderOverlay.innerHTML = `
+                    <div class="card-loader-logo-wrap">
+                        <img src="assets/logo.png" alt="Loading Logo" class="card-loader-logo">
+                    </div>
                     <div class="card-loader-bar">
                         <div class="card-loader-progress"></div>
                     </div>

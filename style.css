@@ -1397,6 +1397,7 @@ em {
     aspect-ratio: 9 / 16;
     overflow: hidden;
     background: #000;
+    position: relative;
 }
 
 .preview-video-wrap video {
@@ -1857,21 +1858,44 @@ em {
 .card-loader-overlay {
     position: absolute;
     inset: 0;
-    background: rgba(5, 5, 5, 0.4);
+    background: #050505;
     backdrop-filter: blur(8px);
     -webkit-backdrop-filter: blur(8px);
-    z-index: 3;
+    z-index: 10;
     opacity: 1;
     transition: opacity 0.4s cubic-bezier(0.25, 1, 0.5, 1);
     pointer-events: none;
     display: flex;
-    align-items: flex-end;
+    flex-direction: column;
+    align-items: center;
+    justify-content: space-between;
     border-radius: inherit;
     overflow: hidden;
 }
 
 .card-loader-overlay.fade-out {
     opacity: 0;
+}
+
+.card-loader-logo-wrap {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-grow: 1;
+    width: 100%;
+}
+
+.card-loader-logo {
+    height: 32px;
+    width: auto;
+    object-fit: contain;
+    animation: logo-blink 1.5s infinite ease-in-out;
+    filter: none !important;
+}
+
+@keyframes logo-blink {
+    0%, 100% { opacity: 0.35; transform: scale(0.96); }
+    50% { opacity: 1; transform: scale(1.04); }
 }
 
 .card-loader-bar {
