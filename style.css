@@ -565,6 +565,9 @@ em {
     overflow: hidden;
     box-shadow: 0 30px 80px rgba(15, 23, 42, 0.15);
     position: relative;
+    max-width: 380px;
+    margin: 0 auto;
+    border: 1px solid rgba(255, 255, 255, 0.05);
 }
 
 .preview-image-wrap {
@@ -1329,6 +1332,25 @@ em {
     .spin-badge {
         display: none;
     }
+    
+    .works-preview-card {
+        max-width: 300px;
+        margin: 0 auto 30px auto;
+    }
+    
+    .preview-details {
+        grid-template-columns: 1fr;
+        gap: 16px;
+        padding: 24px 20px;
+        text-align: center;
+    }
+    
+    .details-divider {
+        width: 100%;
+        height: 1px;
+        background: rgba(255, 255, 255, 0.1);
+        margin: 4px 0;
+    }
 }
 
 @media (max-width: 640px) {
@@ -1372,7 +1394,7 @@ em {
 /* ─── Works Video Preview Card ─── */
 .preview-video-wrap {
     width: 100%;
-    aspect-ratio: 16 / 10;
+    aspect-ratio: 9 / 16;
     overflow: hidden;
     background: #000;
 }
