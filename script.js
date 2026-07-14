@@ -465,6 +465,7 @@ document.addEventListener('DOMContentLoaded', () => {
     const lightbox = document.getElementById('video-lightbox');
     const lightboxVideo = document.getElementById('lightbox-video');
     const lightboxImage = document.getElementById('lightbox-image');
+    const lightboxLoader = document.getElementById('lightbox-loader');
     const lightboxContainer = document.getElementById('lightbox-container');
     const lightboxClose = document.getElementById('lightbox-close');
     const lightboxPrev = document.getElementById('lightbox-prev');
@@ -512,9 +513,20 @@ document.addEventListener('DOMContentLoaded', () => {
 
         if (item.type === 'video') {
             if (lightboxVideo) {
+                if (lightboxLoader) lightboxLoader.classList.add('active');
+                
                 lightboxVideo.src = item.src;
                 lightboxVideo.style.display = 'block';
                 lightboxVideo.load();
+                
+                const hideLoader = () => {
+                    if (lightboxLoader) lightboxLoader.classList.remove('active');
+                };
+                lightboxVideo.onplaying = hideLoader;
+                lightboxVideo.oncanplay = hideLoader;
+                lightboxVideo.onwaiting = () => {
+                    if (lightboxLoader) lightboxLoader.classList.add('active');
+                };
                 
                 lightboxVideo.onloadedmetadata = () => {
                     const aspect = lightboxVideo.videoWidth / lightboxVideo.videoHeight;
