@@ -2180,7 +2180,7 @@ em {
 .lightbox-progress-fill {
     width: 100%;
     height: 100%;
-    background: var(--primary-gradient);
+    background: linear-gradient(90deg, var(--primary), #ffffff);
     position: absolute;
     top: 0;
     left: -100%;
