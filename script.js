@@ -964,3 +964,14 @@ document.addEventListener('DOMContentLoaded', () => {
     }
     loadBackendConfig();
 });
+
+
+// ─── Preloader Loader Handler ───
+window.addEventListener('load', () => {
+    const preloader = document.getElementById('page-preloader');
+    if (preloader) {
+        setTimeout(() => {
+            preloader.classList.add('fade-out');
+        }, 500);
+    }
+});
