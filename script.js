@@ -259,16 +259,60 @@ document.addEventListener('DOMContentLoaded', () => {
     function setupReelsHoverPlayback() {
         const carouselCards = document.querySelectorAll('.carousel-video-card, .reels-grid-card');
         carouselCards.forEach(card => {
-            if (card.querySelector('.hover-logo-overlay')) return;
-
-            // Append watermark logo
-            const logoOverlay = document.createElement('div');
-            logoOverlay.className = 'hover-logo-overlay';
-            logoOverlay.innerHTML = `<img src="assets/logo.png" alt="Two Lads Logo" class="hover-brand-logo">`;
-            card.appendChild(logoOverlay);
-
             const video = card.querySelector('video');
             if (!video) return;
+
+            // Append watermark logo
+            if (!card.querySelector('.hover-logo-overlay')) {
+                const logoOverlay = document.createElement('div');
+                logoOverlay.className = 'hover-logo-overlay';
+                logoOverlay.innerHTML = `<img src="assets/logo.png" alt="Two Lads Logo" class="hover-brand-logo">`;
+                card.appendChild(logoOverlay);
+            }
+
+            // Append premium loading overlay
+            if (!card.querySelector('.card-loader-overlay')) {
+                const loaderOverlay = document.createElement('div');
+                loaderOverlay.className = 'card-loader-overlay';
+                loaderOverlay.innerHTML = `
+                    <div class="card-loader-bar">
+                        <div class="card-loader-progress"></div>
+                    </div>
+                `;
+                card.appendChild(loaderOverlay);
+
+                const progressFill = loaderOverlay.querySelector('.card-loader-progress');
+                
+                const updateProgress = () => {
+                    if (video.buffered.length > 0 && video.duration) {
+                        const bufferedEnd = video.buffered.end(video.buffered.length - 1);
+                        const percent = Math.min((bufferedEnd / video.duration) * 100, 100);
+                        progressFill.style.width = `${percent}%`;
+                    }
+                };
+
+                video.addEventListener('progress', updateProgress);
+                video.addEventListener('loadedmetadata', updateProgress);
+                video.addEventListener('durationchange', updateProgress);
+
+                const hideLoader = () => {
+                    loaderOverlay.classList.add('fade-out');
+                    progressFill.style.width = '100%';
+                };
+
+                const showLoader = () => {
+                    loaderOverlay.classList.remove('fade-out');
+                };
+
+                video.addEventListener('canplay', hideLoader);
+                video.addEventListener('playing', hideLoader);
+                video.addEventListener('waiting', showLoader);
+                video.addEventListener('loadstart', showLoader);
+                
+                if (video.readyState >= 3) {
+                    hideLoader();
+                }
+            }
 
             card.addEventListener('mouseenter', () => {
                 video.play().catch(err => console.log('Autoplay blocked:', err));
