@@ -510,6 +510,7 @@ document.addEventListener('DOMContentLoaded', () => {
     const lightboxVideo = document.getElementById('lightbox-video');
     const lightboxImage = document.getElementById('lightbox-image');
     const lightboxLoader = document.getElementById('lightbox-loader');
+    const lightboxProgressFill = lightboxLoader ? lightboxLoader.querySelector('.lightbox-progress-fill') : null;
     const lightboxContainer = document.getElementById('lightbox-container');
     const lightboxClose = document.getElementById('lightbox-close');
     const lightboxPrev = document.getElementById('lightbox-prev');
@@ -558,13 +559,26 @@ document.addEventListener('DOMContentLoaded', () => {
         if (item.type === 'video') {
             if (lightboxVideo) {
                 if (lightboxLoader) lightboxLoader.classList.add('active');
+                if (lightboxProgressFill) lightboxProgressFill.style.width = '0%';
                 
                 lightboxVideo.src = item.src;
                 lightboxVideo.style.display = 'block';
                 lightboxVideo.load();
                 
+                const updateLightboxProgress = () => {
+                    if (lightboxVideo.buffered.length > 0 && lightboxVideo.duration) {
+                        const bufferedEnd = lightboxVideo.buffered.end(lightboxVideo.buffered.length - 1);
+                        const percent = Math.min((bufferedEnd / lightboxVideo.duration) * 100, 100);
+                        if (lightboxProgressFill) lightboxProgressFill.style.width = `${percent}%`;
+                    }
+                };
+
+                lightboxVideo.onprogress = updateLightboxProgress;
+                lightboxVideo.onloadedmetadata = updateLightboxProgress;
+                
                 const hideLoader = () => {
                     if (lightboxLoader) lightboxLoader.classList.remove('active');
+                    if (lightboxProgressFill) lightboxProgressFill.style.width = '100%';
                 };
                 lightboxVideo.onplaying = hideLoader;
                 lightboxVideo.oncanplay = hideLoader;
