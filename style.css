@@ -2376,6 +2376,7 @@ em {
 
 /* ─── Premium Page Preloader ─── */
 .preloader-overlay {
+    display: none !important;
     position: fixed;
     top: 0;
     left: 0;
