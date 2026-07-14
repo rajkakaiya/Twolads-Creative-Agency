@@ -150,10 +150,402 @@
             </div>
         </section>
 
+        <!-- Split Section: Works (Left: Project list, Right: Preview card) -->
+        <section class="split-section container" id="works">
+            <div class="split-grid">
+                <!-- Left Column: Projects Index -->
+                <div class="works-left">
+                    <div class="section-header">
+                        <span class="section-label">01 // SELECTED WORK</span>
+                        <h2 class="section-title">Clients</h2>
+                    </div>
+                    
+                    <ul class="works-list">
+                        <!-- Project 1 -->
+                        <li class="work-row active" data-project="0" data-video="./Clothing/Constant.mp4">
+                            <span class="work-num">01</span>
+                            <div class="work-meta">
+                                <span class="work-name">Clothing Co. Portal</span>
+                                <span class="work-category">Product Video &amp; Narrative Flow</span>
+                            </div>
+                            <span class="work-year">2026</span>
+                        </li>
+                        <!-- Project 2 -->
+                        <li class="work-row" data-project="1" data-video="./Fantasy Bags/Bag 6th.mp4">
+                            <span class="work-num">02</span>
+                            <div class="work-meta">
+                                <span class="work-name">Fantasy Luxury Carry</span>
+                                <span class="work-category">Visual Brand Assets &amp; Product Reels</span>
+                            </div>
+                            <span class="work-year">2026</span>
+                        </li>
+                        <!-- Project 3 -->
+                        <li class="work-row" data-project="2" data-video="./PD medical/PD medical 1.mp4">
+                            <span class="work-num">03</span>
+                            <div class="work-meta">
+                                <span class="work-name">PD Medical Solutions</span>
+                                <span class="work-category">Commercial Demos &amp; Medical Tech UI</span>
+                            </div>
+                            <span class="work-year">2025</span>
+                        </li>
+                        <!-- Project 4 -->
+                        <li class="work-row" data-project="3" data-video="./Shetkari/Shetkari (1).mp4">
+                            <span class="work-num">04</span>
+                            <div class="work-meta">
+                                <span class="work-name">Shetkari Organic Grid</span>
+                                <span class="work-category">Brand Launch &amp; Social Grid Media</span>
+                            </div>
+                            <span class="work-year">2025</span>
+                        </li>
+                    </ul>
+                </div>
+
+                <!-- Right Column: Visual Preview Card -->
+                <div class="works-right">
+                    <div class="works-preview-card">
+                        <!-- Rotating Stamp Watermark -->
+                        <div class="ag-seal">
+                            <div class="ag-seal-spin">
+                                <svg viewBox="0 0 100 100">
+                                    <path id="sealPath" d="M 50, 50 m -35, 0 a 35,35 0 1,1 70,0 a 35,35 0 1,1 -70,0" fill="none" />
+                                    <text>
+                                        <textPath href="#sealPath">TWOLADS DESIGN STUDIO • VERIFIED • </textPath>
+                                    </text>
+                                </svg>
+                            </div>
+                            <div class="ag-seal-center">
+                                <i data-lucide="check"></i>
+                            </div>
+                        </div>
+
+                        <!-- Video Showcase -->
+                        <div class="preview-video-wrap" id="preview-video-container">
+                            <video loop muted playsinline autoplay id="project-preview-video">
+                                <source src="./Clothing/Constant.mp4" type="video/mp4">
+                            </video>
+                        </div>
+
+                        <!-- Preview Foot Info -->
+                        <div class="preview-details">
+                            <div class="details-left">
+                                <h3 id="preview-project-title">Clothing Co. Portal</h3>
+                                <p id="preview-project-desc">Crafting a high-end luxury e-commerce flow focused on kinetic interaction and fluid product display.</p>
+                            </div>
+                            <div class="details-divider"></div>
+                            <div class="details-right">
+                                <div class="details-block">
+                                    <span class="details-lbl">Deliverables</span>
+                                    <p id="preview-project-deliv">UI/UX Audit, Interactive Prototypes, Frontend Dev</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Services Section: Accordions -->
+        <section class="services-section container" id="services">
+            <div class="section-header">
+                <span class="section-label">02 // SERVICES</span>
+                <h2 class="section-title">Services we provide</h2>
+            </div>
+
+            <div class="services-accordion">
+                <!-- Accordion 1 -->
+                <div class="accordion-row">
+                    <button class="accordion-header">
+                        <span class="accordion-num">01</span>
+                        <h3 class="accordion-title">Social Media <em>Management</em></h3>
+                        <div class="accordion-toggle">
+                            <i data-lucide="plus" class="toggle-plus"></i>
+                        </div>
+                    </button>
+                    <div class="accordion-panel">
+                        <div class="panel-inner">
+                            <div class="panel-desc">
+                                <p>Comprehensive grid layout curation, channel scheduling, active community management, and detailed performance tracking across Instagram, YouTube, and LinkedIn.</p>
+                                <ul class="panel-tags">
+                                    <li>Editorial Grid Strategy</li>
+                                    <li>Active Scheduling</li>
+                                    <li>Community Engagement</li>
+                                    <li>Competitor Audits</li>
+                                </ul>
+                            </div>
+                            <div class="panel-graphic">
+                                <i data-lucide="share-2" class="graphic-icon"></i>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Accordion 2 -->
+                <div class="accordion-row">
+                    <button class="accordion-header">
+                        <span class="accordion-num">02</span>
+                        <h3 class="accordion-title">Content <em>Creation</em></h3>
+                        <div class="accordion-toggle">
+                            <i data-lucide="plus" class="toggle-plus"></i>
+                        </div>
+                    </button>
+                    <div class="accordion-panel">
+                        <div class="panel-inner">
+                            <div class="panel-desc">
+                                <p>High-end, script-led creative asset production. We deploy professional recording setups to build consistent, rich media assets tailored to your brand goals.</p>
+                                <ul class="panel-tags">
+                                    <li>Shooting Scripts</li>
+                                    <li>Media Packages</li>
+                                    <li>B-Roll Archives</li>
+                                    <li>Directing &amp; Lighting</li>
+                                </ul>
+                            </div>
+                            <div class="panel-graphic">
+                                <i data-lucide="video" class="graphic-icon"></i>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Accordion 3 -->
+                <div class="accordion-row">
+                    <button class="accordion-header">
+                        <span class="accordion-num">03</span>
+                        <h3 class="accordion-title">Personal <em>Branding</em></h3>
+                        <div class="accordion-toggle">
+                            <i data-lucide="plus" class="toggle-plus"></i>
+                        </div>
+                    </button>
+                    <div class="accordion-panel">
+                        <div class="panel-inner">
+                            <div class="panel-desc">
+                                <p>Executive positioning campaigns that convert expertise into inbound deal flow. We translate industry insights into digital trust.</p>
+                                <ul class="panel-tags">
+                                    <li>Executive Authority</li>
+                                    <li>Thought Leadership</li>
+                                    <li>Lead Optimization</li>
+                                    <li>Inbound Funnels</li>
+                                </ul>
+                            </div>
+                            <div class="panel-graphic">
+                                <i data-lucide="user" class="graphic-icon"></i>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Accordion 4 -->
+                <div class="accordion-row">
+                    <button class="accordion-header">
+                        <span class="accordion-num">04</span>
+                        <h3 class="accordion-title">Branding &amp; Creative <em>Strategy</em></h3>
+                        <div class="accordion-toggle">
+                            <i data-lucide="plus" class="toggle-plus"></i>
+                        </div>
+                    </button>
+                    <div class="accordion-panel">
+                        <div class="panel-inner">
+                            <div class="panel-desc">
+                                <p>Visual systems development, creative moodboarding, and unified style guidelines to ensure consistent, premium positioning across all client assets.</p>
+                                <ul class="panel-tags">
+                                    <li>Creative Moodboards</li>
+                                    <li>Brand Guideline Books</li>
+                                    <li>Visual Systems</li>
+                                    <li>Asset Retouching</li>
+                                </ul>
+                            </div>
+                            <div class="panel-graphic">
+                                <i data-lucide="compass" class="graphic-icon"></i>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Accordion 5 -->
+                <div class="accordion-row">
+                    <button class="accordion-header">
+                        <span class="accordion-num">05</span>
+                        <h3 class="accordion-title">Reels &amp; Video <em>Editing</em></h3>
+                        <div class="accordion-toggle">
+                            <i data-lucide="plus" class="toggle-plus"></i>
+                        </div>
+                    </button>
+                    <div class="accordion-panel">
+                        <div class="panel-inner">
+                            <div class="panel-desc">
+                                <p>Precision, retention-first editing. We splice and color-grade raw clips into polished social-first media, utilizing clean typography and calculated audio design.</p>
+                                <ul class="panel-tags">
+                                    <li>Retention Timeline</li>
+                                    <li>Color Grading</li>
+                                    <li>Ambient SFX</li>
+                                    <li>Caption Overlays</li>
+                                </ul>
+                            </div>
+                            <div class="panel-graphic">
+                                <i data-lucide="scissors" class="graphic-icon"></i>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Accordion 6 -->
+                <div class="accordion-row">
+                    <button class="accordion-header">
+                        <span class="accordion-num">06</span>
+                        <h3 class="accordion-title">Product &amp; Brand <em>Photoshoots</em></h3>
+                        <div class="accordion-toggle">
+                            <i data-lucide="plus" class="toggle-plus"></i>
+                        </div>
+                    </button>
+                    <div class="accordion-panel">
+                        <div class="panel-inner">
+                            <div class="panel-desc">
+                                <p>Studio lighting product photography, stylized commercial shoots, and modern brand assets engineered for active social campaigns.</p>
+                                <ul class="panel-tags">
+                                    <li>Studio Product Shoots</li>
+                                    <li>Lifestyle Sessions</li>
+                                    <li>High-Fidelity Retouching</li>
+                                    <li>Grid Asset Systems</li>
+                                </ul>
+                            </div>
+                            <div class="panel-graphic">
+                                <i data-lucide="camera" class="graphic-icon"></i>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Accordion 7 -->
+                <div class="accordion-row">
+                    <button class="accordion-header">
+                        <span class="accordion-num">07</span>
+                        <h3 class="accordion-title">Meta &amp; Google <em>Advertising</em></h3>
+                        <div class="accordion-toggle">
+                            <i data-lucide="plus" class="toggle-plus"></i>
+                        </div>
+                    </button>
+                    <div class="accordion-panel">
+                        <div class="panel-inner">
+                            <div class="panel-desc">
+                                <p>Structured paid media acquisition campaigns designed to scale digital revenue. We execute creative A/B testing, construct high-ROAS funnels, and manage ad budgets with statistical discipline.</p>
+                                <ul class="panel-tags">
+                                    <li>Paid Funnel Architecture</li>
+                                    <li>A/B Cohort Splitting</li>
+                                    <li>ROAS-Focused Copy</li>
+                                    <li>Attribution Audits</li>
+                                </ul>
+                            </div>
+                            <div class="panel-graphic">
+                                <i data-lucide="activity" class="graphic-icon"></i>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Process Section: Scroll Timeline -->
+        <section class="process-section container" id="process">
+            <div class="section-header">
+                <span class="section-label">03 // TIMELINE</span>
+                <h2 class="section-title">Process</h2>
+            </div>
+
+            <div class="process-timeline">
+                <div class="timeline-rail">
+                    <div class="rail-base"></div>
+                    <div class="rail-fill" id="timeline-scroll-fill"></div>
+                </div>
+
+                <div class="timeline-steps">
+                    <!-- Step 1: Discovery -->
+                    <div class="timeline-step">
+                        <div class="step-marker">01</div>
+                        <div class="step-content">
+                            <span class="step-lbl">Phase One</span>
+                            <h3 class="step-title">Discovery</h3>
+                            <p class="step-desc">Initial audit, alignment, &amp; goal mapping</p>
+                        </div>
+                    </div>
+
+                    <!-- Step 2: Strategy -->
+                    <div class="timeline-step">
+                        <div class="step-marker">02</div>
+                        <div class="step-content">
+                            <span class="step-lbl">Phase Two</span>
+                            <h3 class="step-title">Strategy</h3>
+                            <p class="step-desc">Creative direction &amp; competitor positioning</p>
+                        </div>
+                    </div>
+
+                    <!-- Step 3: Content Planning -->
+                    <div class="timeline-step">
+                        <div class="step-marker">03</div>
+                        <div class="step-content">
+                            <span class="step-lbl">Phase Three</span>
+                            <h3 class="step-title">Content Planning</h3>
+                            <p class="step-desc">Hook building, scripting &amp; editorial setups</p>
+                        </div>
+                    </div>
+
+                    <!-- Step 4: Design -->
+                    <div class="timeline-step">
+                        <div class="step-marker">04</div>
+                        <div class="step-content">
+                            <span class="step-lbl">Phase Four</span>
+                            <h3 class="step-title">Design</h3>
+                            <p class="step-desc">Creative layouts, color palette &amp; post grids</p>
+                        </div>
+                    </div>
+
+                    <!-- Step 5: Video Editing -->
+                    <div class="timeline-step">
+                        <div class="step-marker">05</div>
+                        <div class="step-content">
+                            <span class="step-lbl">Phase Five</span>
+                            <h3 class="step-title">Video Editing</h3>
+                            <p class="step-desc">Splicing, kinetics, sound designs &amp; grading</p>
+                        </div>
+                    </div>
+
+                    <!-- Step 6: Posting -->
+                    <div class="timeline-step">
+                        <div class="step-marker">06</div>
+                        <div class="step-content">
+                            <span class="step-lbl">Phase Six</span>
+                            <h3 class="step-title">Posting</h3>
+                            <p class="step-desc">SEO descriptions, keywords, &amp; queue release</p>
+                        </div>
+                    </div>
+
+                    <!-- Step 7: Analytics -->
+                    <div class="timeline-step">
+                        <div class="step-marker">07</div>
+                        <div class="step-content">
+                            <span class="step-lbl">Phase Seven</span>
+                            <h3 class="step-title">Analytics</h3>
+                            <p class="step-desc">Audience retention &amp; campaign metrics audit</p>
+                        </div>
+                    </div>
+
+                    <!-- Step 8: Growth -->
+                    <div class="timeline-step">
+                        <div class="step-marker">08</div>
+                        <div class="step-content">
+                            <span class="step-lbl">Phase Eight</span>
+                            <h3 class="step-title">Growth</h3>
+                            <p class="step-desc">Doubling down on winning high-ROAS hooks</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+
+
         <!-- Portfolio Section: Tabbed gallery distribution -->
         <section class="portfolio-section container" id="portfolio" style="padding-bottom: 0;">
             <div class="section-header">
-                <span class="section-label">01 // GALLERY</span>
+                <span class="section-label">04 // GALLERY</span>
                 <h2 class="section-title">Portfolio</h2>
                 
 
@@ -563,399 +955,9 @@
         </div>
         </section>
 
-        <!-- Split Section: Works (Left: Project list, Right: Preview card) -->
-        <section class="split-section container" id="works">
-            <div class="split-grid">
-                <!-- Left Column: Projects Index -->
-                <div class="works-left">
-                    <div class="section-header">
-                        <span class="section-label">02 // SELECTED WORK</span>
-                        <h2 class="section-title">Clients</h2>
-                    </div>
-                    
-                    <ul class="works-list">
-                        <!-- Project 1 -->
-                        <li class="work-row active" data-project="0" data-video="./Clothing/Constant.mp4">
-                            <span class="work-num">01</span>
-                            <div class="work-meta">
-                                <span class="work-name">Clothing Co. Portal</span>
-                                <span class="work-category">Product Video &amp; Narrative Flow</span>
-                            </div>
-                            <span class="work-year">2026</span>
-                        </li>
-                        <!-- Project 2 -->
-                        <li class="work-row" data-project="1" data-video="./Fantasy Bags/Bag 6th.mp4">
-                            <span class="work-num">02</span>
-                            <div class="work-meta">
-                                <span class="work-name">Fantasy Luxury Carry</span>
-                                <span class="work-category">Visual Brand Assets &amp; Product Reels</span>
-                            </div>
-                            <span class="work-year">2026</span>
-                        </li>
-                        <!-- Project 3 -->
-                        <li class="work-row" data-project="2" data-video="./PD medical/PD medical 1.mp4">
-                            <span class="work-num">03</span>
-                            <div class="work-meta">
-                                <span class="work-name">PD Medical Solutions</span>
-                                <span class="work-category">Commercial Demos &amp; Medical Tech UI</span>
-                            </div>
-                            <span class="work-year">2025</span>
-                        </li>
-                        <!-- Project 4 -->
-                        <li class="work-row" data-project="3" data-video="./Shetkari/Shetkari (1).mp4">
-                            <span class="work-num">04</span>
-                            <div class="work-meta">
-                                <span class="work-name">Shetkari Organic Grid</span>
-                                <span class="work-category">Brand Launch &amp; Social Grid Media</span>
-                            </div>
-                            <span class="work-year">2025</span>
-                        </li>
-                    </ul>
-                </div>
+        
 
-                <!-- Right Column: Visual Preview Card -->
-                <div class="works-right">
-                    <div class="works-preview-card">
-                        <!-- Rotating Stamp Watermark -->
-                        <div class="ag-seal">
-                            <div class="ag-seal-spin">
-                                <svg viewBox="0 0 100 100">
-                                    <path id="sealPath" d="M 50, 50 m -35, 0 a 35,35 0 1,1 70,0 a 35,35 0 1,1 -70,0" fill="none" />
-                                    <text>
-                                        <textPath href="#sealPath">TWOLADS DESIGN STUDIO • VERIFIED • </textPath>
-                                    </text>
-                                </svg>
-                            </div>
-                            <div class="ag-seal-center">
-                                <i data-lucide="check"></i>
-                            </div>
-                        </div>
-
-                        <!-- Video Showcase -->
-                        <div class="preview-video-wrap" id="preview-video-container">
-                            <video loop muted playsinline autoplay id="project-preview-video">
-                                <source src="./Clothing/Constant.mp4" type="video/mp4">
-                            </video>
-                        </div>
-
-                        <!-- Preview Foot Info -->
-                        <div class="preview-details">
-                            <div class="details-left">
-                                <h3 id="preview-project-title">Clothing Co. Portal</h3>
-                                <p id="preview-project-desc">Crafting a high-end luxury e-commerce flow focused on kinetic interaction and fluid product display.</p>
-                            </div>
-                            <div class="details-divider"></div>
-                            <div class="details-right">
-                                <div class="details-block">
-                                    <span class="details-lbl">Deliverables</span>
-                                    <p id="preview-project-deliv">UI/UX Audit, Interactive Prototypes, Frontend Dev</p>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </section>
-
-        <!-- Services Section: Accordions -->
-        <section class="services-section container" id="services">
-            <div class="section-header">
-                <span class="section-label">03 // SERVICES</span>
-                <h2 class="section-title">Services we provide</h2>
-            </div>
-
-            <div class="services-accordion">
-                <!-- Accordion 1 -->
-                <div class="accordion-row">
-                    <button class="accordion-header">
-                        <span class="accordion-num">01</span>
-                        <h3 class="accordion-title">Social Media <em>Management</em></h3>
-                        <div class="accordion-toggle">
-                            <i data-lucide="plus" class="toggle-plus"></i>
-                        </div>
-                    </button>
-                    <div class="accordion-panel">
-                        <div class="panel-inner">
-                            <div class="panel-desc">
-                                <p>Comprehensive grid layout curation, channel scheduling, active community management, and detailed performance tracking across Instagram, YouTube, and LinkedIn.</p>
-                                <ul class="panel-tags">
-                                    <li>Editorial Grid Strategy</li>
-                                    <li>Active Scheduling</li>
-                                    <li>Community Engagement</li>
-                                    <li>Competitor Audits</li>
-                                </ul>
-                            </div>
-                            <div class="panel-graphic">
-                                <i data-lucide="share-2" class="graphic-icon"></i>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-
-                <!-- Accordion 2 -->
-                <div class="accordion-row">
-                    <button class="accordion-header">
-                        <span class="accordion-num">02</span>
-                        <h3 class="accordion-title">Content <em>Creation</em></h3>
-                        <div class="accordion-toggle">
-                            <i data-lucide="plus" class="toggle-plus"></i>
-                        </div>
-                    </button>
-                    <div class="accordion-panel">
-                        <div class="panel-inner">
-                            <div class="panel-desc">
-                                <p>High-end, script-led creative asset production. We deploy professional recording setups to build consistent, rich media assets tailored to your brand goals.</p>
-                                <ul class="panel-tags">
-                                    <li>Shooting Scripts</li>
-                                    <li>Media Packages</li>
-                                    <li>B-Roll Archives</li>
-                                    <li>Directing &amp; Lighting</li>
-                                </ul>
-                            </div>
-                            <div class="panel-graphic">
-                                <i data-lucide="video" class="graphic-icon"></i>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-
-                <!-- Accordion 3 -->
-                <div class="accordion-row">
-                    <button class="accordion-header">
-                        <span class="accordion-num">03</span>
-                        <h3 class="accordion-title">Personal <em>Branding</em></h3>
-                        <div class="accordion-toggle">
-                            <i data-lucide="plus" class="toggle-plus"></i>
-                        </div>
-                    </button>
-                    <div class="accordion-panel">
-                        <div class="panel-inner">
-                            <div class="panel-desc">
-                                <p>Executive positioning campaigns that convert expertise into inbound deal flow. We translate industry insights into digital trust.</p>
-                                <ul class="panel-tags">
-                                    <li>Executive Authority</li>
-                                    <li>Thought Leadership</li>
-                                    <li>Lead Optimization</li>
-                                    <li>Inbound Funnels</li>
-                                </ul>
-                            </div>
-                            <div class="panel-graphic">
-                                <i data-lucide="user" class="graphic-icon"></i>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-
-                <!-- Accordion 4 -->
-                <div class="accordion-row">
-                    <button class="accordion-header">
-                        <span class="accordion-num">04</span>
-                        <h3 class="accordion-title">Branding &amp; Creative <em>Strategy</em></h3>
-                        <div class="accordion-toggle">
-                            <i data-lucide="plus" class="toggle-plus"></i>
-                        </div>
-                    </button>
-                    <div class="accordion-panel">
-                        <div class="panel-inner">
-                            <div class="panel-desc">
-                                <p>Visual systems development, creative moodboarding, and unified style guidelines to ensure consistent, premium positioning across all client assets.</p>
-                                <ul class="panel-tags">
-                                    <li>Creative Moodboards</li>
-                                    <li>Brand Guideline Books</li>
-                                    <li>Visual Systems</li>
-                                    <li>Asset Retouching</li>
-                                </ul>
-                            </div>
-                            <div class="panel-graphic">
-                                <i data-lucide="compass" class="graphic-icon"></i>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-
-                <!-- Accordion 5 -->
-                <div class="accordion-row">
-                    <button class="accordion-header">
-                        <span class="accordion-num">05</span>
-                        <h3 class="accordion-title">Reels &amp; Video <em>Editing</em></h3>
-                        <div class="accordion-toggle">
-                            <i data-lucide="plus" class="toggle-plus"></i>
-                        </div>
-                    </button>
-                    <div class="accordion-panel">
-                        <div class="panel-inner">
-                            <div class="panel-desc">
-                                <p>Precision, retention-first editing. We splice and color-grade raw clips into polished social-first media, utilizing clean typography and calculated audio design.</p>
-                                <ul class="panel-tags">
-                                    <li>Retention Timeline</li>
-                                    <li>Color Grading</li>
-                                    <li>Ambient SFX</li>
-                                    <li>Caption Overlays</li>
-                                </ul>
-                            </div>
-                            <div class="panel-graphic">
-                                <i data-lucide="scissors" class="graphic-icon"></i>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-
-                <!-- Accordion 6 -->
-                <div class="accordion-row">
-                    <button class="accordion-header">
-                        <span class="accordion-num">06</span>
-                        <h3 class="accordion-title">Product &amp; Brand <em>Photoshoots</em></h3>
-                        <div class="accordion-toggle">
-                            <i data-lucide="plus" class="toggle-plus"></i>
-                        </div>
-                    </button>
-                    <div class="accordion-panel">
-                        <div class="panel-inner">
-                            <div class="panel-desc">
-                                <p>Studio lighting product photography, stylized commercial shoots, and modern brand assets engineered for active social campaigns.</p>
-                                <ul class="panel-tags">
-                                    <li>Studio Product Shoots</li>
-                                    <li>Lifestyle Sessions</li>
-                                    <li>High-Fidelity Retouching</li>
-                                    <li>Grid Asset Systems</li>
-                                </ul>
-                            </div>
-                            <div class="panel-graphic">
-                                <i data-lucide="camera" class="graphic-icon"></i>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-
-                <!-- Accordion 7 -->
-                <div class="accordion-row">
-                    <button class="accordion-header">
-                        <span class="accordion-num">07</span>
-                        <h3 class="accordion-title">Meta &amp; Google <em>Advertising</em></h3>
-                        <div class="accordion-toggle">
-                            <i data-lucide="plus" class="toggle-plus"></i>
-                        </div>
-                    </button>
-                    <div class="accordion-panel">
-                        <div class="panel-inner">
-                            <div class="panel-desc">
-                                <p>Structured paid media acquisition campaigns designed to scale digital revenue. We execute creative A/B testing, construct high-ROAS funnels, and manage ad budgets with statistical discipline.</p>
-                                <ul class="panel-tags">
-                                    <li>Paid Funnel Architecture</li>
-                                    <li>A/B Cohort Splitting</li>
-                                    <li>ROAS-Focused Copy</li>
-                                    <li>Attribution Audits</li>
-                                </ul>
-                            </div>
-                            <div class="panel-graphic">
-                                <i data-lucide="activity" class="graphic-icon"></i>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </section>
-
-        <!-- Process Section: Scroll Timeline -->
-        <section class="process-section container" id="process">
-            <div class="section-header">
-                <span class="section-label">04 // TIMELINE</span>
-                <h2 class="section-title">Process</h2>
-            </div>
-
-            <div class="process-timeline">
-                <div class="timeline-rail">
-                    <div class="rail-base"></div>
-                    <div class="rail-fill" id="timeline-scroll-fill"></div>
-                </div>
-
-                <div class="timeline-steps">
-                    <!-- Step 1: Discovery -->
-                    <div class="timeline-step">
-                        <div class="step-marker">01</div>
-                        <div class="step-content">
-                            <span class="step-lbl">Phase One</span>
-                            <h3 class="step-title">Discovery</h3>
-                            <p class="step-desc">Initial audit, alignment, &amp; goal mapping</p>
-                        </div>
-                    </div>
-
-                    <!-- Step 2: Strategy -->
-                    <div class="timeline-step">
-                        <div class="step-marker">02</div>
-                        <div class="step-content">
-                            <span class="step-lbl">Phase Two</span>
-                            <h3 class="step-title">Strategy</h3>
-                            <p class="step-desc">Creative direction &amp; competitor positioning</p>
-                        </div>
-                    </div>
-
-                    <!-- Step 3: Content Planning -->
-                    <div class="timeline-step">
-                        <div class="step-marker">03</div>
-                        <div class="step-content">
-                            <span class="step-lbl">Phase Three</span>
-                            <h3 class="step-title">Content Planning</h3>
-                            <p class="step-desc">Hook building, scripting &amp; editorial setups</p>
-                        </div>
-                    </div>
-
-                    <!-- Step 4: Design -->
-                    <div class="timeline-step">
-                        <div class="step-marker">04</div>
-                        <div class="step-content">
-                            <span class="step-lbl">Phase Four</span>
-                            <h3 class="step-title">Design</h3>
-                            <p class="step-desc">Creative layouts, color palette &amp; post grids</p>
-                        </div>
-                    </div>
-
-                    <!-- Step 5: Video Editing -->
-                    <div class="timeline-step">
-                        <div class="step-marker">05</div>
-                        <div class="step-content">
-                            <span class="step-lbl">Phase Five</span>
-                            <h3 class="step-title">Video Editing</h3>
-                            <p class="step-desc">Splicing, kinetics, sound designs &amp; grading</p>
-                        </div>
-                    </div>
-
-                    <!-- Step 6: Posting -->
-                    <div class="timeline-step">
-                        <div class="step-marker">06</div>
-                        <div class="step-content">
-                            <span class="step-lbl">Phase Six</span>
-                            <h3 class="step-title">Posting</h3>
-                            <p class="step-desc">SEO descriptions, keywords, &amp; queue release</p>
-                        </div>
-                    </div>
-
-                    <!-- Step 7: Analytics -->
-                    <div class="timeline-step">
-                        <div class="step-marker">07</div>
-                        <div class="step-content">
-                            <span class="step-lbl">Phase Seven</span>
-                            <h3 class="step-title">Analytics</h3>
-                            <p class="step-desc">Audience retention &amp; campaign metrics audit</p>
-                        </div>
-                    </div>
-
-                    <!-- Step 8: Growth -->
-                    <div class="timeline-step">
-                        <div class="step-marker">08</div>
-                        <div class="step-content">
-                            <span class="step-lbl">Phase Eight</span>
-                            <h3 class="step-title">Growth</h3>
-                            <p class="step-desc">Doubling down on winning high-ROAS hooks</p>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </section>
-
-
-
-        <!-- About Section -->
+<!-- About Section -->
         <section class="about-section container" id="about" style="padding: 100px 0 60px;">
             <div class="about-grid" style="display: grid; grid-template-columns: 1fr 1fr; gap: 80px; align-items: center;">
                 <div class="reveal-left">
@@ -1133,9 +1135,9 @@
             <div class="bn-logo-inner"></div>
         </a>
         <div class="bn-links">
-            <a href="#portfolio">Portfolio</a>
             <a href="#services">Services</a>
             <a href="#process">Process</a>
+            <a href="#portfolio">Portfolio</a>
             <a href="#contact">Contact</a>
         </div>
     </nav>
