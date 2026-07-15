@@ -69,7 +69,11 @@ document.addEventListener('DOMContentLoaded', () => {
             const header = row.querySelector('.work-row-header');
             const video = row.querySelector('.work-dropdown-video');
 
-            const handleToggle = (e) => {
+            row.addEventListener('click', (e) => {
+                if (e.target.closest('.work-dropdown-content')) {
+                    return; // Ignore clicks inside the video/details area
+                }
+
                 e.stopPropagation();
                 const isActive = row.classList.contains('active');
 
@@ -83,24 +87,16 @@ document.addEventListener('DOMContentLoaded', () => {
                 });
 
                 if (isActive) {
-                    // Collapse current
                     row.classList.remove('active');
                     if (video) video.pause();
                 } else {
-                    // Expand current
                     row.classList.add('active');
                     if (video) {
                         video.play()
                             .catch(err => console.log('Autoplay blocked:', err));
                     }
                 }
-            };
-
-            if (header) {
-                header.addEventListener('click', handleToggle);
-            } else {
-                row.addEventListener('click', handleToggle);
-            }
+            });
 
             row.addEventListener('mouseenter', () => {
                 document.body.classList.add('cursor-hover');
