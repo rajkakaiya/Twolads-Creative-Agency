@@ -1448,6 +1448,11 @@ em {
         padding: 60px 16px;
     }
     
+    .about-section {
+        padding-left: 36px !important;
+        padding-right: 16px !important;
+    }
+    
     .hero {
         padding-top: 140px;
     }
