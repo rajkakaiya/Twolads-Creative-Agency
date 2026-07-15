@@ -55,78 +55,78 @@ document.addEventListener('DOMContentLoaded', () => {
     }
 
     window.setupWorksHoverPreviews = function(customProjectsData) {
-        const previewContainer = document.getElementById('preview-video-container');
-        const previewVideo = document.getElementById('project-preview-video');
-        const previewTitle = document.getElementById('preview-project-title');
-        const previewDesc = document.getElementById('preview-project-desc');
-        const previewDeliv = document.getElementById('preview-project-deliv');
-
-        // Card loader removed as preloading is handled globally on page preloader startup.
-
-        const dataList = customProjectsData || [
-            {
-                title: "Clothing Co. Portal",
-                desc: "Crafting a high-end luxury e-commerce flow focused on kinetic interaction and fluid product display.",
-                deliv: "Creative Direction, Sound Design, Subtitles"
-            },
-            {
-                title: "Fantasy Luxury Carry",
-                desc: "Creating high-contrast visual brand shoots and commercial product loops for modern laptop cases.",
-                deliv: "Studio Lighting, SFX Mixing, Color Grading"
-            },
-            {
-                title: "PD Medical Solutions",
-                desc: "Designing responsive doctor dashboard panels and mobile onboarding interfaces with high focus on accessibility.",
-                deliv: "Channel SEO, Thumbnail Design, Script Layouts"
-            },
-            {
-                title: "Shetkari Organic Grid",
-                desc: "Constructing modern social marketing assets, packaging design guides, and product catalog hubs.",
-                deliv: "Social Matrix Scheduling, Hook Planning"
-            }
-        ];
-
         const workRows = document.querySelectorAll('.work-row');
+        
+        // Remove existing listeners by cloning rows
         workRows.forEach(row => {
-            // Remove existing listeners by cloning
             const newRow = row.cloneNode(true);
             row.parentNode.replaceChild(newRow, row);
         });
 
         const freshWorkRows = document.querySelectorAll('.work-row');
+        
         freshWorkRows.forEach(row => {
-            row.addEventListener('mouseenter', () => {
-                freshWorkRows.forEach(r => r.classList.remove('active'));
-                row.classList.add('active');
+            const header = row.querySelector('.work-row-header');
+            const video = row.querySelector('.work-dropdown-video');
 
-                const index = parseInt(row.getAttribute('data-project'));
-                const videoPath = row.getAttribute('data-video');
-                const data = dataList[index];
+            const handleToggle = (e) => {
+                e.stopPropagation();
+                const isActive = row.classList.contains('active');
 
-                if (data && previewVideo && previewTitle && previewDesc && previewDeliv) {
-                    previewContainer.classList.add('swapping');
+                // Collapse all other rows
+                freshWorkRows.forEach(r => {
+                    if (r !== row) {
+                        r.classList.remove('active');
+                        const v = r.querySelector('.work-dropdown-video');
+                        if (v) v.pause();
+                    }
+                });
 
-                    setTimeout(() => {
-                        previewVideo.src = videoPath;
-                        previewVideo.load();
-                        previewVideo.play().catch(err => console.log('Autoplay blocked:', err));
-                        
-                        previewTitle.textContent = data.title;
-                        previewDesc.textContent = data.desc;
-                        previewDeliv.textContent = data.deliv;
-
-                        previewContainer.classList.remove('swapping');
-                    }, 150);
+                if (isActive) {
+                    // Collapse current
+                    row.classList.remove('active');
+                    if (video) video.pause();
+                } else {
+                    // Expand current
+                    row.classList.add('active');
+                    if (video) {
+                        video.play()
+                            .catch(err => console.log('Autoplay blocked:', err));
+                    }
                 }
-            });
+            };
+
+            if (header) {
+                header.addEventListener('click', handleToggle);
+            } else {
+                row.addEventListener('click', handleToggle);
+            }
 
             row.addEventListener('mouseenter', () => {
-                document.body.classList.add('cursor-view-hover');
+                document.body.classList.add('cursor-hover');
             });
             row.addEventListener('mouseleave', () => {
-                document.body.classList.remove('cursor-view-hover');
+                document.body.classList.remove('cursor-hover');
             });
         });
+
+        // Initialize state: open the first one by default!
+        if (freshWorkRows.length > 0) {
+            freshWorkRows.forEach((r, idx) => {
+                if (idx === 0) {
+                    r.classList.add('active');
+                    const v = r.querySelector('.work-dropdown-video');
+                    if (v) {
+                        // Wait a tiny bit and play
+                        setTimeout(() => {
+                            v.play().catch(() => {});
+                        }, 500);
+                    }
+                } else {
+                    r.classList.remove('active');
+                }
+            });
+        }
     };
 
     setupWorksHoverPreviews();
@@ -953,14 +953,32 @@ document.addEventListener('DOMContentLoaded', () => {
                 config.projects.forEach((proj, idx) => {
                     const activeClass = idx === 0 ? 'active' : '';
                     const num = String(idx + 1).padStart(2, '0');
+                    const delivVal = proj.deliv || 'Creative Direction, Video Production, Editing';
                     worksList.innerHTML += `
                         <li class="work-row ${activeClass}" data-project="${idx}" data-video="${proj.videoSrc || ''}">
-                            <span class="work-num">${num}</span>
-                            <div class="work-meta">
-                                <span class="work-name">${proj.title || ''}</span>
-                                <span class="work-category">${proj.category || ''}</span>
+                            <div class="work-row-header">
+                                <span class="work-num">${num}</span>
+                                <div class="work-meta">
+                                    <span class="work-name">${proj.title || ''}</span>
+                                    <span class="work-category">${proj.category || ''}</span>
+                                </div>
+                                <span class="work-year">${proj.year || ''}</span>
+                                <span class="work-arrow"><i data-lucide="chevron-down"></i></span>
                             </div>
-                            <span class="work-year">${proj.year || ''}</span>
+                            <div class="work-dropdown-content">
+                                <div class="work-dropdown-video-wrap">
+                                    <video class="work-dropdown-video" loop muted playsinline preload="${idx === 0 ? 'auto' : 'metadata'}">
+                                        <source src="${proj.videoSrc || ''}" type="video/mp4">
+                                    </video>
+                                </div>
+                                <div class="work-dropdown-details">
+                                    <p class="work-dropdown-desc">${proj.desc || ''}</p>
+                                    <div class="work-dropdown-deliv-block">
+                                        <span class="work-dropdown-lbl">Deliverables</span>
+                                        <p class="work-dropdown-deliv">${delivVal}</p>
+                                    </div>
+                                </div>
+                            </div>
                         </li>
                     `;
                 });
