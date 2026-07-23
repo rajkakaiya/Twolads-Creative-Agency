@@ -88,7 +88,7 @@ a {
     transform: translate(-50%, -50%);
     pointer-events: none;
     z-index: 199999;
-    transition: transform 0.08s ease-out, width 0.25s, height 0.25s, background-color 0.25s, border-color 0.25s, border-radius 0.25s;
+    transition: width 0.25s, height 0.25s, background-color 0.25s, border-color 0.25s, border-radius 0.25s;
     display: flex;
     align-items: center;
     justify-content: center;
@@ -2211,25 +2211,10 @@ em {
     width: 100%;
     height: 100%;
     object-fit: cover;
-    animation: slowFloat 14s ease-in-out infinite;
 }
 
 .curve-line {
     stroke-dasharray: 1000;
-    animation: flowLine 24s linear infinite;
-}
-
-.curve-1 {
-    animation-duration: 22s;
-}
-
-.curve-2 {
-    animation-duration: 28s;
-    animation-direction: reverse;
-}
-
-.curve-3 {
-    animation-duration: 34s;
 }
 
 @keyframes flowLine {
@@ -2685,7 +2670,7 @@ em {
 .spinner-progress {
     position: absolute;
     top: 0;
-    left: -100%;
+    left: 0;
     width: 100%;
     height: 100%;
     background: linear-gradient(90deg, var(--primary), #ffffff);
@@ -2702,6 +2687,6 @@ em {
 }
 
 @keyframes loading-progress {
-    0% { left: -100%; }
-    100% { left: 100%; }
+    0% { transform: translateX(-100%); }
+    100% { transform: translateX(100%); }
 }

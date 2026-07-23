@@ -6,12 +6,13 @@ document.addEventListener('DOMContentLoaded', () => {
         lucide.createIcons();
     }
 
-    // 2. Custom Interactive Cursor Tracker
+    // 2. Custom Interactive Cursor Tracker (Buttery smooth lerped follower)
     const cursor = document.getElementById('allgood-cursor');
     const follower = document.getElementById('allgood-follower');
 
     if (cursor && follower) {
         let mouseX = 0, mouseY = 0;
+        let followerX = 0, followerY = 0;
         let ticking = false;
 
         document.addEventListener('mousemove', (e) => {
@@ -23,14 +24,27 @@ document.addEventListener('DOMContentLoaded', () => {
                     cursor.style.left = `${mouseX}px`;
                     cursor.style.top = `${mouseY}px`;
                     cursor.classList.add('cursor-active');
-                    
-                    follower.style.transform = `translate3d(${mouseX}px, ${mouseY}px, 0)`;
-                    follower.classList.add('cursor-active');
                     ticking = false;
                 });
                 ticking = true;
             }
         });
+
+        // Loop to lerp the follower position for smooth lag effect
+        function updateFollower() {
+            // Lerp math: move 12% closer on every frame
+            const dx = mouseX - followerX;
+            const dy = mouseY - followerY;
+            
+            followerX += dx * 0.12;
+            followerY += dy * 0.12;
+            
+            follower.style.transform = `translate3d(${followerX}px, ${followerY}px, 0)`;
+            follower.classList.add('cursor-active');
+            
+            requestAnimationFrame(updateFollower);
+        }
+        requestAnimationFrame(updateFollower);
 
         document.addEventListener('mouseleave', () => {
             cursor.classList.remove('cursor-active');
@@ -899,7 +913,7 @@ document.addEventListener('DOMContentLoaded', () => {
                     const data = getReelData(r);
                     return `
                         <div class="carousel-video-card" data-video="${data.videoSrc}" data-link="${data.instagramUrl}">
-                            <video loop muted playsinline preload="metadata">
+                            <video loop muted playsinline preload="none">
                                 <source src="${data.videoSrc}" type="video/mp4">
                             </video>
                         </div>
@@ -963,7 +977,7 @@ document.addEventListener('DOMContentLoaded', () => {
                             </div>
                             <div class="work-dropdown-content">
                                 <div class="work-dropdown-video-wrap">
-                                    <video class="work-dropdown-video" loop muted playsinline preload="${idx === 0 ? 'auto' : 'metadata'}">
+                                    <video class="work-dropdown-video" loop muted playsinline preload="none">
                                         <source src="${proj.videoSrc || ''}" type="video/mp4">
                                     </video>
                                 </div>
@@ -988,6 +1002,11 @@ document.addEventListener('DOMContentLoaded', () => {
             // Re-setup hover triggers for newly populated videos
             setupReelsHoverPlayback();
 
+            // Initialize lazy loading observer for newly populated videos
+            if (typeof initLazyVideoLoading === 'function') {
+                initLazyVideoLoading();
+            }
+
             // Refresh lucide icons
             if (typeof lucide !== 'undefined') {
                 lucide.createIcons();
@@ -1002,59 +1021,53 @@ document.addEventListener('DOMContentLoaded', () => {
 });
 
 
+// ─── Lazy Video Loading Handler ───
+function initLazyVideoLoading() {
+    const lazyVideos = document.querySelectorAll('.carousel-video-card video, .reels-grid-card video');
+    if ('IntersectionObserver' in window) {
+        const videoObserver = new IntersectionObserver((entries, observer) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    const video = entry.target;
+                    // Change preload to metadata and load the video to fetch first frame
+                    video.preload = "metadata";
+                    video.load();
+                    observer.unobserve(video);
+                }
+            });
+        }, {
+            rootMargin: "300px" // Load video metadata 300px before entering viewport
+        });
+
+        lazyVideos.forEach(video => {
+            video.preload = "none"; // Ensure they don't load initially
+            videoObserver.observe(video);
+        });
+    } else {
+        // Fallback for browsers that don't support IntersectionObserver
+        lazyVideos.forEach(video => {
+            video.preload = "metadata";
+            video.load();
+        });
+    }
+}
+
 // ─── Preloader Loader Handler ───
 window.addEventListener('load', () => {
     const preloader = document.getElementById('page-preloader');
     if (!preloader) return;
-
-    const carouselVideos = Array.from(document.querySelectorAll('.carousel-video-card video')).slice(0, 3);
-    let loadedCount = 0;
-    const targetCount = carouselVideos.length;
-
-    const startBackgroundPreloading = () => {
-        const allVideos = document.querySelectorAll('.carousel-video-card video, .reels-grid-card video');
-        allVideos.forEach(video => {
-            if (video.preload !== 'auto') {
-                video.preload = 'auto';
-                video.load();
-            }
-        });
-    };
 
     const fadeOutPreloader = () => {
         if (preloader.classList.contains('fade-out')) return;
         preloader.classList.add('fade-out');
         setTimeout(() => {
             preloader.style.display = 'none';
-            startBackgroundPreloading();
         }, 600);
     };
 
-    if (carouselVideos.length === 0) {
-        fadeOutPreloader();
-        return;
-    }
-
-    const checkVideoLoaded = () => {
-        loadedCount++;
-        if (loadedCount >= targetCount) {
-            fadeOutPreloader();
-        }
-    };
-
-    carouselVideos.forEach(video => {
-        video.preload = "auto";
-        if (video.readyState >= 3) {
-            checkVideoLoaded();
-        } else {
-            video.addEventListener('canplaythrough', checkVideoLoaded, { once: true });
-            video.addEventListener('canplay', checkVideoLoaded, { once: true });
-            video.addEventListener('error', checkVideoLoaded, { once: true });
-        }
-    });
-
-    // Fallback: Snappier 3.5 seconds timeout to keep startup instant
-    setTimeout(() => {
-        fadeOutPreloader();
-    }, 3500);
+    // Fade out preloader quickly on window load to ensure instant website loading
+    setTimeout(fadeOutPreloader, 300);
+    
+    // Initialize lazy loading on window load for static HTML videos
+    initLazyVideoLoading();
 });
